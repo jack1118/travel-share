@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>有馬神戶一日遊</title>
+<style>
+/* 一頁小抄：時間條 → 2 個集合時間 → 有馬卡 → 神戶卡 → 出發前 */
+:root{
+  --bg:#f6f4ef; --card:#fff; --ink:#1d2433; --muted:#646c79; --line:#e2ddd3;
+  --arima:#b5562b; --arima-soft:#f7e3d6;   /* 有馬金泉的紅褐 */
+  --kobe:#1f6fb2;  --kobe-soft:#dcebf7;    /* 神戶港藍 */
+  --bus:#6b7280;   --bus-soft:#eceef1;
+  --hot:#d43d3d;
+  --font-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --font-num:"Barlow Condensed","Arial Narrow","Noto Sans TC",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161d; --card:#1b212b; --ink:#e8ecf2; --muted:#9aa4b2; --line:#2c3441;
+    --arima:#f09a6c; --arima-soft:#3e2619; --kobe:#5aa7e6; --kobe-soft:#183450;
+    --bus:#9aa4b2; --bus-soft:#262d38; --hot:#f07a7a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161d; --card:#1b212b; --ink:#e8ecf2; --muted:#9aa4b2; --line:#2c3441;
+  --arima:#f09a6c; --arima-soft:#3e2619; --kobe:#5aa7e6; --kobe-soft:#183450;
+  --bus:#9aa4b2; --bus-soft:#262d38; --hot:#f07a7a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--font-body)}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 44px;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+h1{margin:0;font-size:24px;line-height:1.25}
+h2{margin:0 0 10px;font-size:13px;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.sub{margin:4px 0 0;color:var(--muted);font-size:14px}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+
+/* 時間條 */
+.bar{display:grid;grid-template-columns:2.3fr 2fr 1fr 2.5fr 2fr;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.seg{padding:9px 4px 8px;text-align:center;line-height:1.2;font-size:12px;font-weight:700;min-width:0}
+.seg small{display:block;font:500 11px/1.2 var(--font-body);opacity:.85;margin-top:2px}
+.seg.b{background:var(--bus-soft);color:var(--bus)}
+.seg.a{background:var(--arima);color:#fff}
+.seg.k{background:var(--kobe);color:#fff}
+.ticks{display:grid;grid-template-columns:2.3fr 2fr 1fr 2.5fr 2fr;margin-top:4px;font:700 13px/1 var(--font-num);color:var(--muted)}
+.ticks span:last-child{display:flex;justify-content:space-between}
+
+/* 集合時間 */
+.meet{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mt{background:var(--card);border:2px solid var(--hot);border-radius:12px;padding:10px 12px;text-align:center}
+.mt b{display:block;font:700 30px/1 var(--font-num);color:var(--hot)}
+.mt span{font-size:13px;color:var(--muted)}
+
+/* 地點卡 */
+.place{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 14px;color:#fff}
+.ph b{font-size:19px}
+.ph span{font:700 15px/1 var(--font-num);opacity:.95}
+.place.a .ph{background:var(--arima)} .place.k .ph{background:var(--kobe)}
+.steps{list-style:none;margin:0;padding:12px 14px 6px;display:grid;gap:10px}
+.steps li{display:grid;grid-template-columns:3.2em 1fr;gap:10px;line-height:1.45}
+.steps time{font:700 16px/1.35 var(--font-num);color:var(--muted)}
+.steps .jp{font-weight:700}
+.steps small{display:block;font-size:12.5px;color:var(--muted)}
+.tip{margin:4px 14px 14px;background:var(--bg);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--muted)}
+.tip b{color:var(--ink)}
+.pick{display:grid;gap:8px;padding:12px 14px 6px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.opt b{display:block}
+.opt span{font-size:13px;color:var(--muted)}
+
+/* 出發前 */
+.check{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 34px;margin:0;display:grid;gap:6px}
+.check li{padding-left:2px}
+.check .hot{color:var(--hot);font-weight:700}
+.foot{font-size:12px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>有馬溫泉＋神戶 一日遊</h1>
+  <p class="sub"><span class="num">11/23</span>（一）日本國定假日・GenkiJACS 免費巴士</p>
+</header>
+
+<!-- 一眼看完一天 -->
+<section aria-label="一天的時間條">
+  <h2>這一天</h2>
+  <div class="bar" role="img" aria-label="8:10 出發坐巴士，10:30 到 12:30 有馬，坐巴士 1 小時，13:30 到 16:00 神戶，坐巴士 18:00 回到學校">
+    <div class="seg b">🚌 巴士<small>出發</small></div>
+    <div class="seg a">♨️ 有馬<small>2 小時</small></div>
+    <div class="seg b">🚌</div>
+    <div class="seg k">⚓ 神戶<small>2.5 小時</small></div>
+    <div class="seg b">🚌 回<small>學校</small></div>
+  </div>
+  <div class="ticks"><span>8:10</span><span>10:30</span><span>12:30</span><span>13:30</span><span>16:00<span>18:00</span></span></div>
+</section>
+
+<!-- 最重要 -->
+<section aria-label="集合時間">
+  <h2>一定要回到巴士（巴士不等人）</h2>
+  <div class="meet">
+    <div class="mt"><b>12:30</b><span>有馬出發</span></div>
+    <div class="mt"><b>16:00</b><span>神戶出發</span></div>
+  </div>
+</section>
+
+<!-- 有馬 -->
+<section aria-label="有馬怎麼玩">
+  <div class="place a">
+    <div class="ph"><b>♨️ 有馬：泡湯＋邊走邊吃</b><span>10:30–12:30</span></div>
+    <ul class="steps">
+      <li><time>10:30</time><span>直接去泡湯 30–40 分<br><span class="jp">金の湯</span>（紅褐色金泉）或 <span class="jp">銀の湯</span>（透明）<small>兩間 11/23 都有開・假日金の湯可能要排隊，排太長就改去銀の湯</small></span></li>
+      <li><time>11:15</time><span>逛 <span class="jp">湯本坂</span> 溫泉街，邊走邊吃<small>炭酸煎餅（炭酸せんべい）、<span class="jp">竹中肉店</span>可樂餅 ¥170</small></span></li>
+      <li><time>12:00</time><span>時間夠就去 <span class="jp">瑞宝寺公園</span> 看紅葉<small>11 月下旬通常最紅；來回要走一段上坡，趕就跳過</small></span></li>
+      <li><time>12:20</time><span><b>回巴士</b></span></li>
+    </ul>
+    <p class="tip">💡 有馬只吃小吃墊肚子，<b>午餐留到神戶</b>，泡湯才有時間。毛巾自己帶，或在現場買。</p>
+  </div>
+</section>
+
+<!-- 神戶 -->
+<section aria-label="神戶怎麼玩">
+  <div class="place k">
+    <div class="ph"><b>⚓ 神戶：先吃飯，再挑一區</b><span>13:30–16:00</span></div>
+    <ul class="steps">
+      <li><time>13:30</time><span><b>午餐</b><small><span class="jp">南京町</span>邊走邊吃最快；想吃神戶牛就找午間套餐，很多店午餐只到 15:00 左右，要先吃</small></span></li>
+      <li><time>14:30</time><span>挑一區逛到 15:45（看巴士在哪裡下車）</span></li>
+      <li><time>15:45</time><span><b>回巴士</b></span></li>
+    </ul>
+    <div class="pick">
+      <div class="opt"><b>巴士停三宮 → 北野異人館街</b><span>往山上走約 15 分，坡有點陡。11/14 跑馬拉松前沒去，這次補上</span></div>
+      <div class="opt"><b>巴士停港邊 → ハーバーランド</b><span>港邊商場：逛街、看海、喝咖啡，最輕鬆</span></div>
+    </div>
+    <p class="tip">💡 南京町、港塔、メリケンパーク 11/14 已經一起去過了，這次可以玩別的。</p>
+  </div>
+</section>
+
+<!-- 出發前 -->
+<section aria-label="出發前">
+  <h2>出發前</h2>
+  <ol class="check">
+    <li><span class="hot">11/9（一）15:00 前報名</span>，過了不收</li>
+    <li>問學校：<b>巴士在神戶哪裡下車</b></li>
+    <li>帶：毛巾、現金（溫泉、小吃）、交通卡</li>
+    <li>午餐自己付；回程可能塞車，18:00 不一定準時到</li>
+  </ol>
+</section>
+
+<p class="foot">金の湯第 2、4 個週二休，銀の湯第 1、3 個週二休，11/23 是週一，兩間都有開。現場價格和營業時間以當天公告為準。</p>
+
+</div>
+</body>
+</html>
