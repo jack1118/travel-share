@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>日文第 1 課｜飯店＋餐廳</title>
+<style>
+body{font-family:-apple-system,"Hiragino Sans","PingFang TC",sans-serif;margin:0;background:#faf7f2;color:#222}
+header{background:#c0392b;color:#fff;padding:14px 16px}
+h1{font-size:20px;margin:0}
+header p{margin:4px 0 0;font-size:14px;opacity:.9}
+h2{font-size:17px;margin:22px 16px 8px;color:#c0392b}
+.card{background:#fff;margin:10px 12px;padding:14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.zh{font-size:14px;color:#666}
+.jp{font-size:26px;margin:6px 0 10px;line-height:1.3}
+.kana{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.k{background:#f3ece2;border-radius:6px;padding:4px 6px;text-align:center;min-width:28px}
+.k b{display:block;font-size:20px;font-weight:500}
+.k i{display:block;font-size:12px;font-style:normal;color:#8a5a2b}
+.k.small{background:#fde2e0}
+.say{font-size:15px;margin-bottom:10px}
+.btns{display:flex;gap:8px}
+button{flex:1;font-size:17px;padding:12px;border:0;border-radius:10px;background:#2c3e50;color:#fff}
+button.slow{background:#7f8c8d}
+.tip{font-size:13px;color:#555;margin-top:8px;background:#fffbe6;padding:6px 8px;border-radius:6px}
+.rules{margin:10px 12px;padding:12px 14px;background:#fff;border-radius:12px;font-size:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<header><h1>日文第 1 課｜11/13 飯店＋餐廳</h1><p>按「🐢 慢」先聽，再按「▶ 正常」，跟著念。</p></header>
+
+<div class="rules">
+<b>3 個基本規則</b><br>
+① <b>片假名</b>（有稜角，例：チェックイン）用來寫外來語。<br>
+② <b>平假名</b>（圓圓的，例：おねがい）用來寫日文原本的詞。<br>
+③ <b>小字</b>：小 ッ＝停一拍；小 ャュョェ 跟前一個字合在一起念（チ＋ェ＝che）。
+</div>
+
+<div id="list"></div>
+
+<script>
+const S=[
+ {sec:"🏨 第 1 幕：飯店 check-in"},
+ {zh:"我要入住",jp:"チェックイン、お願いします",k:"チェ:che ッ:· ク:ku イ:i ン:n | お:o ね:ne が:ga い:i し:shi ま:ma す:su",say:"切‧酷‧因，喔內該‧西媽斯",tip:"お願い 的漢字「願」念 ねが（nega）。句尾 す 的 u 幾乎不念。"},
+ {zh:"我姓林，有預約",jp:"リンです。予約しています",k:"リ:ri ン:n で:de す:su | よ:yo や:ya く:ku し:shi て:te い:i ま:ma す:su",say:"林‧爹斯，喲呀酷‧西貼‧依媽斯",tip:"予約＝よやく（預約）。日文沒有 L 音，林 念成 リン（rin）。"},
+ {zh:"家人已經先入住了",jp:"家族が先にチェックインしています",k:"か:ka ぞ:zo く:ku が:ga | さ:sa き:ki に:ni | チェ:che ッ:· ク:ku イ:i ン:n | し:shi て:te い:i ま:ma す:su",say:"卡宙酷嘎，撒kiー你，切酷因 西貼依媽斯",tip:"家族＝かぞく（家人），先に＝さきに（先）。"},
+ {sec:"🍽 第 2 幕：餐廳 comocchi"},
+ {zh:"我們訂了 21 點，姓周",jp:"21時に予約した、周です",k:"に:ni じゅう:jū い:i ち:chi じ:ji に:ni | よ:yo や:ya く:ku し:shi た:ta | しゅう:shū で:de す:su",say:"你久-依七-吉 你，喲呀酷西他，咻‧爹斯",tip:"じゅう 的小 ゅ 跟 じ 合念 jū。21時＝にじゅういちじ。"},
+ {zh:"3 位",jp:"3人です",k:"さ:sa ん:n に:ni ん:n で:de す:su",say:"三‧寧‧爹斯",tip:"〇人＝〇にん。1 人是 ひとり，2 人是 ふたり（特別念法）。"},
+ {zh:"不好意思（叫店員）",jp:"すみません",k:"す:su み:mi ま:ma せ:se ん:n",say:"斯咪媽森",tip:"舉手說這句，店員就會過來。"},
+ {zh:"我要這個（指菜單）",jp:"これ、お願いします",k:"こ:ko れ:re | お:o ね:ne が:ga い:i し:shi ま:ma す:su",say:"口勒，喔內該西媽斯",tip:"これ＝這個。最萬用的一句。"},
+ {zh:"推薦什麼？",jp:"おすすめは何ですか？",k:"お:o す:su す:su め:me は:wa | な:na ん:n で:de す:su か:ka",say:"喔斯斯妹 哇，難爹斯卡？",tip:"は 當助詞時念 wa 不念 ha！句尾 か＝問號。"},
+ {zh:"生啤酒兩杯",jp:"生ビール、ふたつ",k:"な:na ま:ma ビ:bi ー:~ ル:ru | ふ:fu た:ta つ:tsu",say:"那媽 逼ー嚕，呼他刺",tip:"長音符號「ー」＝把前一個音拉長。ビール＝beer。"},
+ {zh:"請給我水",jp:"お水、お願いします",k:"お:o み:mi ず:zu | お:o ね:ne が:ga い:i し:shi ま:ma す:su",say:"喔咪茲，喔內該西媽斯",tip:"水＝みず。日本餐廳水通常免費。"},
+ {zh:"我要結帳",jp:"お会計、お願いします",k:"お:o か:ka い:i け:ke い:i | お:o ね:ne が:ga い:i し:shi ま:ma す:su",say:"喔卡依kei，喔內該西媽斯",tip:"会計＝かいけい（結帳）。也可以雙手比 X。"},
+ {zh:"可以刷卡嗎？",jp:"カード、使えますか？",k:"カ:ka ー:~ ド:do | つ:tsu か:ka え:e ま:ma す:su か:ka",say:"卡ー兜，刺卡欸媽斯卡？",tip:"カード＝card。使えます＝能用。"},
+ {zh:"謝謝招待（離開時）",jp:"ごちそうさまでした",k:"ご:go ち:chi そ:so う:u さ:sa ま:ma で:de し:shi た:ta",say:"狗七搜ー撒媽 爹西他",tip:"そう 的 う 是把 o 拉長：sō。"},
+];
+let n=0;const L=document.getElementById('list');let a=new Audio();
+for(const s of S){
+ if(s.sec){L.insertAdjacentHTML('beforeend',`<h2>${s.sec}</h2>`);continue}
+ n++;const id=String(n).padStart(2,'0');
+ const kana=s.k.split(' ').map(t=>t==='|'?'<span style="width:8px"></span>':(([c,r])=>`<span class="k${/^[ァィゥェォッャュョ]$|ッ/.test(c)&&c.length===1?' small':''}"><b>${c}</b><i>${r}</i></span>`)(t.split(':'))).join('');
+ L.insertAdjacentHTML('beforeend',`<div class="card"><div class="zh">${n}. ${s.zh}</div><div class="jp">${s.jp}</div><div class="kana">${kana}</div><div class="say">🗣 ${s.say}</div><div class="btns"><button class="slow" onclick="p('${id}-slow')">🐢 慢</button><button onclick="p('${id}-norm')">▶ 正常</button></div><div class="tip">${s.tip}</div></div>`);
+}
+function p(f){a.pause();a=new Audio(f+'.m4a');a.play()}
+</script>
+</body>
+</html>
