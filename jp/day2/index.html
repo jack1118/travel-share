@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>日文第 2 課｜11/14 鐵板燒＋纜車＋麵包＋義大利麵</title>
+<style>
+body{font-family:-apple-system,"Hiragino Sans","PingFang TC",sans-serif;margin:0;background:#faf7f2;color:#222}
+header{background:#c0392b;color:#fff;padding:14px 16px}
+h1{font-size:20px;margin:0}
+header p{margin:4px 0 0;font-size:14px;opacity:.9}
+h2{font-size:17px;margin:22px 16px 8px;color:#c0392b}
+.card{background:#fff;margin:10px 12px;padding:14px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.zh{font-size:14px;color:#666}
+.jp{font-size:26px;margin:6px 0 10px;line-height:1.3}
+.kana{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.k{background:#f3ece2;border-radius:6px;padding:4px 6px;text-align:center;min-width:28px}
+.k b{display:block;font-size:20px;font-weight:500}
+.k i{display:block;font-size:12px;font-style:normal;color:#8a5a2b}
+.k.small{background:#fde2e0}
+.say{font-size:15px;margin-bottom:10px}
+.btns{display:flex;gap:8px}
+button{flex:1;font-size:17px;padding:12px;border:0;border-radius:10px;background:#2c3e50;color:#fff}
+button.slow{background:#7f8c8d}
+.tip{font-size:13px;color:#555;margin-top:8px;background:#fffbe6;padding:6px 8px;border-radius:6px}
+.rules{margin:10px 12px;padding:12px 14px;background:#fff;border-radius:12px;font-size:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<header><h1>日文第 2 課｜11/14 下午</h1><p>按「🐢 慢」先聽，再按「▶ 正常」，跟著念。</p></header>
+
+<div class="rules">
+<b>3 個基本規則</b><br>
+① <b>片假名</b>（有稜角，例：チェックイン）用來寫外來語。<br>
+② <b>平假名</b>（圓圓的，例：おねがい）用來寫日文原本的詞。<br>
+③ <b>小字</b>：小 ッ＝停一拍；小 ャュョェ 跟前一個字合在一起念（チ＋ェ＝che）。
+</div>
+
+<div id="list"></div>
+
+<script>
+const S=[
+ {"sec": "🥩 第 1 幕：法貴 鐵板燒（13:00）"},
+ {"zh": "我們訂了 13 點，姓林", "jp": "13時に予約した、リンです", "k": "じゅう:jū さん:san じ:ji に:ni | よ:yo や:ya く:ku し:shi た:ta | リ:ri ン:n で:de す:su", "say": "久‧桑‧吉 你，喲呀酷西他，林‧爹斯", "tip": "13時＝じゅうさんじ。予約した＝訂好了的。"},
+ {"zh": "牛肉要五分熟", "jp": "ミディアムレアでお願いします", "k": "ミ:mi ディ:di ア:a ム:mu | レ:re ア:a | で:de | お:o ね:ne が:ga い:i し:shi ま:ma す:su", "say": "咪滴阿木 勒阿 爹，喔內該西媽斯", "tip": "店員會問「焼き加減は？」（熟度要怎樣？）。ディ＝デ＋小ィ 合念 di。全熟是 ウェルダン。"},
+ {"zh": "可以再來一碗白飯嗎？", "jp": "ご飯のおかわり、できますか？", "k": "ご:go は:ha ん:n の:no | お:o か:ka わ:wa り:ri | で:de き:ki ま:ma す:su か:ka", "say": "狗哈恩 no，喔卡哇里，爹 kii 媽斯卡？", "tip": "おかわり＝再來一份（續碗）。這裡的 は 是字本身，念 ha。"},
+ {"zh": "好好吃！", "jp": "とても、おいしいです！", "k": "と:to て:te も:mo | お:o い:i し:shi い:i で:de す:su", "say": "偷貼摸，喔依西～依 爹斯！", "tip": "師傅在你面前煎，吃一口講這句，他會很開心。"},
+ {"sec": "🚃 第 2 幕：地鐵＋布引纜車（14:45）"},
+ {"zh": "這班車會停新神戶嗎？", "jp": "この電車は新神戸に止まりますか？", "k": "こ:ko の:no で:de ん:n しゃ:sha は:wa | し:shi ん:n こ:ko う:u べ:be に:ni | と:to ま:ma り:ri ま:ma す:su か:ka", "say": "口no 電蝦 哇，辛扣ー貝 你，偷媽里媽斯卡？", "tip": "電車＝でんしゃ（しゃ＝し＋小ゃ）。は 當助詞念 wa。站員點頭說「はい」就是會停。"},
+ {"zh": "往新神戶的月台在哪？", "jp": "新神戸方面のホームはどこですか？", "k": "し:shi ん:n こ:ko う:u べ:be | ほ:ho う:u め:me ん:n の:no | ホ:ho ー:~ ム:mu は:wa | ど:do こ:ko で:de す:su か:ka", "say": "辛扣ー貝 齁ー妹恩 no，齁ー木 哇，兜口 爹斯卡？", "tip": "ホーム＝月台（platform）。方面＝往…方向，招牌上常看到。"},
+ {"zh": "纜車來回票，大人 3 張", "jp": "往復、大人3枚お願いします", "k": "お:o う:u ふ:fu く:ku | お:o と:to な:na | さ:sa ん:n ま:ma い:i | お:o ね:ne が:ga い:i し:shi ま:ma す:su", "say": "喔ー呼酷，喔偷那 桑媽依，喔內該西媽斯", "tip": "往復＝來回，片道（かたみち）＝單程。紙張、票的量詞是 枚（まい）。"},
+ {"zh": "可以拍照嗎？", "jp": "写真を撮ってもいいですか？", "k": "しゃ:sha し:shi ん:n を:o | と:to っ:· て:te も:mo | い:i い:i で:de す:su か:ka", "say": "蝦辛 喔，偷・貼摸，依ー 爹斯卡？", "tip": "を 念 o。小っ＝停一拍：と‧って。拍別人、或在店裡拍之前問一下。"},
+ {"zh": "洗手間在哪？", "jp": "トイレはどこですか？", "k": "ト:to イ:i レ:re は:wa | ど:do こ:ko で:de す:su か:ka", "say": "偷依勒 哇，兜口 爹斯卡？", "tip": "最萬用的一句。把 トイレ 換成任何地方都能問：ホーム、エレベーター…"},
+ {"sec": "🥐 第 3 幕：サ・マーシュ 買麵包（16:45）"},
+ {"zh": "這個，請給我兩個", "jp": "これを二つください", "k": "こ:ko れ:re を:o | ふ:fu た:ta つ:tsu | く:ku だ:da さ:sa い:i", "say": "口勒 喔，呼他刺，酷搭撒依", "tip": "數量：ひとつ(1)、ふたつ(2)、みっつ(3)、よっつ(4)。手指比數字也可以。"},
+ {"zh": "不用袋子，謝謝", "jp": "袋は大丈夫です", "k": "ふ:fu く:ku ろ:ro は:wa | だ:da い:i じょ:jo う:u ぶ:bu で:de す:su", "say": "呼酷摟 哇，搭依久ー布 爹斯", "tip": "店員會先問「袋はご利用ですか？」（要袋子嗎？）。要就說 はい、お願いします。袋子通常要另外收幾日圓。"},
+ {"sec": "🍝 第 4 幕：TAVERNAMANO 晚餐（18:00）"},
+ {"zh": "我們訂了 18 點，姓林", "jp": "18時に予約した、リンです", "k": "じゅう:jū は:ha ち:chi じ:ji に:ni | よ:yo や:ya く:ku し:shi た:ta | リ:ri ン:n で:de す:su", "say": "久‧哈七‧吉 你，喲呀酷西他，林‧爹斯", "tip": "18時＝じゅうはちじ。前面 13時 只把數字換掉，句型一樣。"},
+ {"zh": "麵可以加大份嗎？", "jp": "大盛りにできますか？", "k": "お:o お:o も:mo り:ri に:ni | で:de き:ki ま:ma す:su か:ka", "say": "喔ー摸里 你，爹 kii 媽斯卡？", "tip": "大盛り＝大份。明天要跑全馬，今晚多吃碳水！"},
+ {"zh": "明天要跑馬拉松", "jp": "明日、マラソンを走ります", "k": "あ:a し:shi た:ta | マ:ma ラ:ra ソ:so ン:n を:o | は:ha し:shi り:ri ま:ma す:su", "say": "阿西他，媽拉送 喔，哈西里媽斯", "tip": "店員多半會回「頑張ってください！」（加油！）。回答：ありがとうございます！"},
+];
+let n=0;const L=document.getElementById('list');let a=new Audio();
+for(const s of S){
+ if(s.sec){L.insertAdjacentHTML('beforeend',`<h2>${s.sec}</h2>`);continue}
+ n++;const id=String(n).padStart(2,'0');
+ const kana=s.k.split(' ').map(t=>t==='|'?'<span style="width:8px"></span>':(([c,r])=>`<span class="k${/^[ァィゥェォッャュョ]$|ッ/.test(c)&&c.length===1?' small':''}"><b>${c}</b><i>${r}</i></span>`)(t.split(':'))).join('');
+ L.insertAdjacentHTML('beforeend',`<div class="card"><div class="zh">${n}. ${s.zh}</div><div class="jp">${s.jp}</div><div class="kana">${kana}</div><div class="say">🗣 ${s.say}</div><div class="btns"><button class="slow" onclick="p('${id}-slow')">🐢 慢</button><button onclick="p('${id}-norm')">▶ 正常</button></div><div class="tip">${s.tip}</div></div>`);
+}
+function p(f){a.pause();a=new Audio(f+'.m4a');a.play()}
+</script>
+<p style="text-align:center;margin:24px 0 32px;font-size:16px"><a href="../day1/">第 1 課</a>　｜　<a href="../day2/">第 2 課</a>　｜　<a href="../day3/">第 3 課</a></p>
+</body>
+</html>
